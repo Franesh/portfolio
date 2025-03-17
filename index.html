@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FRANESH | Portfolio</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <header>
+        <h1>FRANESH</h1>
+        <nav>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Me</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <button id="darkModeToggle">🌙</button>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero fade-in">
+        <h2>Hi, I'm FRANESH 👋</h2>
+        <p>Engineer | IoT & AI Enthusiast | Innovator</p>
+        <a href="#contact" class="btn">Get in Touch</a>
+    </section>
+
+    <!-- About Me Section -->
+    <section id="about" class="about fade-in">
+        <h2>About Me</h2>
+        <p>I am passionate about IoT, AI, and embedded systems. My work focuses on building smart solutions that integrate hardware and software seamlessly.</p>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects fade-in">
+        <h2>My Projects</h2>
+        <div class="project-card">
+            <h3>IoT-Based Smart Home</h3>
+            <p>Designed an IoT-enabled home automation system using ESP32 and Blynk.</p>
+        </div>
+        <div class="project-card">
+            <h3>AI-Based Image Classification</h3>
+            <p>Developed a deep learning model to classify high-resolution remote sensing images.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact fade-in">
+        <h2>Contact Me</h2>
+        <form id="contactForm">
+            <input type="text" id="name" placeholder="Your Name" required>
+            <input type="email" id="email" placeholder="Your Email" required>
+            <textarea id="message" rows="4" placeholder="Your Message" required></textarea>
+            <button type="submit">Send Message</button>
+        </form>
+        <p id="statusMessage"></p>
+    </section>
+
+    <script>
+        // Dark Mode Toggle
+        const toggle = document.getElementById('darkModeToggle');
+        toggle.addEventListener('click', () => {
+            document.body.classList.toggle('dark-mode');
+            localStorage.setItem('theme', document.body.classList.contains('dark-mode') ? 'dark' : 'light');
+        });
+
+        // Load Dark Mode Preference
+        if (localStorage.getItem('theme') === 'dark') {
+            document.body.classList.add('dark-mode');
+        }
+
+        // Smooth Scrolling
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(event) {
+                event.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({ behavior: 'smooth' });
+            });
+        });
+
+        // Scroll Animations
+        const sections = document.querySelectorAll('.fade-in');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, { threshold: 0.2 });
+
+        sections.forEach(section => observer.observe(section));
+
+        // Contact Form Handling
+        document.getElementById('contactForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            document.getElementById('statusMessage').textContent = "Message Sent Successfully! ✅";
+        });
+    </script>
+</body>
+</html>
